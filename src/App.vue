@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     
-    <tete />
+    <tete
+    :numCorrect="numCorrect"
+    :numTotal="numTotal" />
 
   <b-container class="bv-example-row">
   <b-row>
@@ -9,7 +11,8 @@
     <QuestionBox 
     v-if ="Questions.length"
     :currentQuestion =" Questions[index]"
-    :next ="next"/>
+    :next ="next"
+    :increment="increment" />
     </b-col>
     
     
@@ -33,13 +36,21 @@ export default {
   data () {
     return {
       Questions : [],
-      index : 0
+      index : 0,
+      numCorrect : 0,
+      numTotal : 0
     }
   }, 
    methods: {
      next () {
        this.index++
-     }
+     },
+      increment(isCorrect) {
+      if (isCorrect) {
+        this.numCorrect++
+      }
+      this.numTotal++
+    }
    },
 
    
